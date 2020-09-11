@@ -22,6 +22,8 @@ else
 asciidoc_MANS =
 endif
 
+X11_CFLAGS = -lX11 -lxkbfile
+
 AM_CPPFLAGS = \
 	-DSYSCONFDIR="\"$(sysconfdir)\"" \
 	-I$(top_srcdir)/include \
@@ -34,7 +36,8 @@ i3status_CFLAGS = \
 	$(PULSE_CFLAGS) \
 	$(NLGENL_CFLAGS) \
 	$(ALSA_CFLAGS) \
-	$(PTHREAD_CFLAGS)
+	$(PTHREAD_CFLAGS) \
+	$(X11_CFLAGS)
 
 i3status_CPPFLAGS = \
 	$(AM_CPPFLAGS) \
@@ -73,6 +76,7 @@ i3status_SOURCES = \
 	src/print_volume.c \
 	src/print_wireless_info.c \
 	src/print_file_contents.c \
+	src/print_xkb_layout.c \
 	src/process_runs.c
 
 if PULSE

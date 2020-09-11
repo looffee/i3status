@@ -314,6 +314,10 @@ int main(int argc, char *argv[]) {
         CFG_CUSTOM_SEP_BLOCK_WIDTH_OPT,
         CFG_END()};
 
+     cfg_opt_t xkb_layout_opts[] = {
+        CFG_END()
+    };
+
     cfg_opt_t battery_opts[] = {
         CFG_STR("format", "%status %percentage %remaining", CFGF_NONE),
         CFG_STR("format_down", "No battery", CFGF_NONE),
@@ -466,6 +470,7 @@ int main(int argc, char *argv[]) {
         CFG_SEC("disk", disk_opts, CFGF_TITLE | CFGF_MULTI),
         CFG_SEC("volume", volume_opts, CFGF_TITLE | CFGF_MULTI),
         CFG_SEC("ipv6", ipv6_opts, CFGF_NONE),
+        CFG_SEC("xkblayout", xkb_layout_opts, CFGF_NONE),
         CFG_SEC("time", time_opts, CFGF_NONE),
         CFG_SEC("tztime", tztime_opts, CFGF_TITLE | CFGF_MULTI),
         CFG_SEC("ddate", ddate_opts, CFGF_NONE),
@@ -670,6 +675,12 @@ int main(int argc, char *argv[]) {
             CASE_SEC("ipv6") {
                 SEC_OPEN_MAP("ipv6");
                 print_ipv6_info(json_gen, buffer, cfg_getstr(sec, "format_up"), cfg_getstr(sec, "format_down"));
+                SEC_CLOSE_MAP;
+            }
+
+            CASE_SEC("xkblayout") {
+                SEC_OPEN_MAP("xkblayout");
+                print_xkb_layout(json_gen, buffer);
                 SEC_CLOSE_MAP;
             }
 
